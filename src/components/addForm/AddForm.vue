@@ -3,6 +3,9 @@ import FirstnameInput from './ui/FirstnameInput.vue';
 import LastnameInput from './ui/LastnameInput.vue';
 import EmailInput from './ui/EmailInput.vue';
 import AddBtn from './ui/AddBtn.vue';
+const getEmail = (email) => {
+  console.log(email);
+};
 </script>
 <template>
   <!-- Aside gauche pour le formulaire -->
@@ -10,7 +13,7 @@ import AddBtn from './ui/AddBtn.vue';
     <h2 class="text-xl font-bold mb-4">Add a Contact</h2>
     <firstname-input />
     <lastname-input />
-    <email-input />
+    <email-input @on-change="getEmail" />
     <add-btn />
   </aside>
 </template>
