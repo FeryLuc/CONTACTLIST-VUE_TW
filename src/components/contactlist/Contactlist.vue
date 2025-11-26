@@ -12,6 +12,13 @@ onMounted(async () => {
   contacts.splice(contacts.length, 0, ...response);
   console.table(contacts);
 });
+const deleteContact = async (id) => {
+  await DB.deleteOneById(id);
+  const index = contacts.findIndex((c) => c.id === id);
+  if (index != -1) {
+    contacts.splice(index, 1);
+  }
+};
 </script>
 <template>
   <!-- Section droite pour la liste des contacts -->
@@ -20,7 +27,7 @@ onMounted(async () => {
     <!-- Filtre de recherche -->
     <search-bar />
     <!-- Liste des contacts triée et filtrée -->
-    <list-table :contacts="contacts" />
+    <list-table :contacts="contacts" @on-delete="deleteContact" />
   </section>
 </template>
 <style scoped></style>

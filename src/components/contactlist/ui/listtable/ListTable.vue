@@ -3,6 +3,10 @@ import Contact from './ui/Contact.vue';
 const props = defineProps({
   contacts: { type: Array },
 });
+const emit = defineEmits(['onDelete']);
+const onDelete = (id) => {
+  emit('onDelete', id);
+};
 </script>
 <template>
   <table class="table-auto w-full contacts-table">
@@ -23,6 +27,7 @@ const props = defineProps({
         v-for="contact in contacts"
         :key="contact.id"
         :contact="contact"
+        @on-delete="onDelete"
       />
     </tbody>
   </table>

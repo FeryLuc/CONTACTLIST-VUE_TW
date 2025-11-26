@@ -2,6 +2,10 @@
 const props = defineProps({
   contact: { type: Object },
 });
+const emit = defineEmits(['onDelete']);
+const onDelete = () => {
+  emit('onDelete', props.contact.id);
+};
 </script>
 <template>
   <tr class="contact-row">
@@ -43,6 +47,7 @@ const props = defineProps({
         </button>
         <button
           class="btn-delete isEditing-hidden bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md"
+          @click="onDelete"
         >
           <i class="fa-solid fa-trash"></i>
         </button>
