@@ -1,11 +1,16 @@
 <script setup>
 import Contact from './ui/Contact.vue';
+
 const props = defineProps({
   contacts: { type: Array },
 });
-const emit = defineEmits(['onDelete']);
+
+const emit = defineEmits(['onDelete', 'onUpdate']);
 const onDelete = (id) => {
   emit('onDelete', id);
+};
+const onUpdate = (newContact) => {
+  emit('onUpdate', newContact);
 };
 </script>
 <template>
@@ -28,6 +33,7 @@ const onDelete = (id) => {
         :key="contact.id"
         :contact="contact"
         @on-delete="onDelete"
+        @on-update="onUpdate"
       />
     </tbody>
   </table>

@@ -30,6 +30,9 @@ const addContact = async () => {
   contacts.splice(contacts.length, 0, response);
   console.table(contacts);
 };
+const updateContact = async (newContact) => {
+  await DB.updateOne(newContact);
+};
 watch(props.formData, addContact);
 </script>
 <template>
@@ -39,7 +42,11 @@ watch(props.formData, addContact);
     <!-- Filtre de recherche -->
     <search-bar />
     <!-- Liste des contacts triée et filtrée -->
-    <list-table :contacts="contacts" @on-delete="deleteContact" />
+    <list-table
+      :contacts="contacts"
+      @on-delete="deleteContact"
+      @on-update="updateContact"
+    />
   </section>
 </template>
 <style scoped></style>
