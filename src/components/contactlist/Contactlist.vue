@@ -3,15 +3,21 @@ import ContactlistHeader from './ui/ContactlistHeader.vue';
 import SearchBar from './ui/SearchBar.vue';
 import ListTable from './ui/listtable/ListTable.vue';
 import DB from '@/DB';
-import { reactive, ref, onMounted } from 'vue';
+import { reactive, onMounted, watch } from 'vue';
 
 const contacts = reactive([]);
+
 onMounted(async () => {
   DB.setApiUrl('https://691b0e532d8d7855757146d3.mockapi.io/');
   const response = await DB.findAll();
   contacts.splice(contacts.length, 0, ...response);
   console.table(contacts);
 });
+
+const props = defineProps({
+  formData: { type: Object },
+});
+
 const deleteContact = async (id) => {
   await DB.deleteOneById(id);
   const index = contacts.findIndex((c) => c.id === id);
@@ -19,6 +25,12 @@ const deleteContact = async (id) => {
     contacts.splice(index, 1);
   }
 };
+const addContact = async () => {
+  const response = await DB.create(props.formData);
+  contacts.splice(contacts.length, 0, response);
+  console.table(contacts);
+};
+watch(props.formData, addContact);
 </script>
 <template>
   <!-- Section droite pour la liste des contacts -->
