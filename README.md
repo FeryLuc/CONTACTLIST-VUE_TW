@@ -1,8 +1,8 @@
-# Évaluation dans le cadre du cours Script Client
+# Évaluation dans le cadre du cours Script Client traduite en Vue.js V1
 
-## ContactList en Vanilla OOP
+## ContactList en Vue.js
 
-Cette application a été développée en **JavaScript Vanilla orienté objet** et permet de gérer une liste de contacts en interaction avec **MockAPI**.  
+Cette application a été développée en **Vue.js** et permet de gérer une liste de contacts en interaction avec **MockAPI**.  
 Elle offre une interface simple et intuitive pour manipuler et organiser ses contacts.
 
 ---
