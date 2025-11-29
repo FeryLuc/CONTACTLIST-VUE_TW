@@ -1,38 +1,47 @@
-# Contactlist-Vue-TW
+# Évaluation dans le cadre du cours Script Client
 
-This template should help get you started developing with Vue 3 in Vite.
+## ContactList en Vanilla OOP
 
-## Recommended IDE Setup
+Cette application a été développée en **JavaScript Vanilla orienté objet** et permet de gérer une liste de contacts en interaction avec **MockAPI**.  
+Elle offre une interface simple et intuitive pour manipuler et organiser ses contacts.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## ✨ Fonctionnalités
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+### ➕ Ajout d’un contact
 
-## Customize configuration
+Permet d’ajouter un nouveau contact à l’aide d’un formulaire dédié.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### 🗑️ Suppression d’un contact
 
-## Project Setup
+Un bouton intégré à chaque ligne du tableau permet de supprimer le contact correspondant.
 
-```sh
-npm install
-```
+### ✏️ Modification d’un contact
 
-### Compile and Hot-Reload for Development
+Un bouton _Modifier_ ouvre un formulaire pré-rempli afin de mettre à jour les informations du contact.
 
-```sh
-npm run dev
-```
+### 🔽🔼 Tri par colonnes
 
-### Compile and Minify for Production
+Un clic sur les en-têtes de colonnes (firstname, lastname, email) permet de trier le tableau en ordre croissant.
 
-```sh
-npm run build
-```
+### 🔍 Barre de recherche
+
+Une barre de recherche dynamique permet de filtrer les contacts en temps réel selon le prénom, le nom ou l’adresse e-mail.
+
+---
+
+## 🗄️ Utilisation de MockAPI
+
+L’application utilise **MockAPI** pour gérer l’ensemble du CRUD :
+
+- **GET** : récupération des contacts
+- **POST** : ajout d’un nouveau contact
+- **PUT** : modification d’un contact
+- **DELETE** : suppression d’un contact
+
+MockAPI sert de backend simulé, facilitant les tests et la gestion des données.
+
+---
+
+[Demo](https://feryluc.github.io/EVAL-CONTACTLIST-LUC-FERY/)
