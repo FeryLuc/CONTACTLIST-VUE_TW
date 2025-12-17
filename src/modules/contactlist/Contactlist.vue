@@ -1,14 +1,14 @@
 <script setup>
-import ContactlistHeader from './ui/ContactlistHeader.vue';
-import SearchBar from './ui/SearchBar.vue';
-import ListTable from './ui/listtable/ListTable.vue';
-import DB from '@/DB';
-import { computed, onMounted, watch, ref } from 'vue';
+import ContactlistHeader from "./components/ContactlistHeader.vue";
+import SearchBar from "./components/SearchBar.vue";
+import ListTable from "./components/ListTable.vue";
+import DB from "@/services/DB";
+import { computed, onMounted, watch, ref } from "vue";
 
 const contacts = ref([]);
 const filteredContacts = ref(contacts.value);
 onMounted(async () => {
-  DB.setApiUrl('https://691b0e532d8d7855757146d3.mockapi.io/');
+  DB.setApiUrl("https://691b0e532d8d7855757146d3.mockapi.io/");
   const response = await DB.findAll();
   contacts.value.splice(contacts.value.length, 0, ...response);
   console.table(contacts);

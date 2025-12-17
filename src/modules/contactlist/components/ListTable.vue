@@ -1,17 +1,17 @@
 <script setup>
-import Contact from './ui/Contact.vue';
+import Contact from "./Contact.vue";
 
 const props = defineProps({
   contacts: { type: Array },
   filteredContacts: { type: Array },
 });
 
-const emit = defineEmits(['onDelete', 'onUpdate']);
+const emit = defineEmits(["onDelete", "onUpdate"]);
 const onDelete = (id) => {
-  emit('onDelete', id);
+  emit("onDelete", id);
 };
 const onUpdate = (newContact) => {
-  emit('onUpdate', newContact);
+  emit("onUpdate", newContact);
 };
 </script>
 <template>
