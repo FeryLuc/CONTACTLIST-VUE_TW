@@ -9,7 +9,7 @@ const formData = reactive({
 });
 const editingId = ref(null);
 
-const getContactCount = computed(() => contacts.length);
+const contactCount = computed(() => contacts.length);
 const isCompleted = computed(() => {
   if (formData.firstname && formData.lastname && formData.email) {
     return true;
@@ -39,7 +39,6 @@ const startEditing = (id) => {
 const updateContact = async (newContact) => {
   await DB.updateOne(newContact);
   console.table(contacts);
-
   editingId.value = null;
 };
 const deleteContact = async (id) => {
@@ -62,6 +61,7 @@ export const store = reactive({
   contacts,
   formData,
   editingId,
+  contactCount,
   createContact,
   startEditing,
   updateContact,

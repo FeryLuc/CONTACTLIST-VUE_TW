@@ -26,7 +26,7 @@ import { store } from "@/stores/contacts";
 <template>
   <!-- Section droite pour la liste des contacts -->
   <section class="w-2/3 p-6">
-    <contactlist-header :contactCount="getContactCount" />
+    <contactlist-header :contactCount="store.contactCount" />
     <!-- Filtre de recherche -->
     <search-bar @on-search="searchInArray" />
     <!-- Liste des contacts triée et filtrée -->
