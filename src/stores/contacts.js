@@ -8,6 +8,7 @@ const formData = reactive({
   email: "",
 });
 const editingId = ref(null);
+const searchValue = ref("");
 
 const contactCount = computed(() => contacts.length);
 const isCompleted = computed(() => {
@@ -16,6 +17,17 @@ const isCompleted = computed(() => {
   } else {
     return false;
   }
+});
+const filteredContacts = computed(() => {
+  if (!searchValue.value) {
+    return contacts;
+  }
+  return contacts.filter(
+    (c) =>
+      c.firstname.toLowerCase().includes(searchValue.value) ||
+      c.lastname.toLowerCase().includes(searchValue.value) ||
+      c.email.toLowerCase().includes(searchValue.value)
+  );
 });
 
 const init = async (url) => {
@@ -58,10 +70,11 @@ const resetInputs = () => {
 
 export const store = reactive({
   init,
-  contacts,
   formData,
   editingId,
   contactCount,
+  searchValue,
+  filteredContacts,
   createContact,
   startEditing,
   updateContact,
