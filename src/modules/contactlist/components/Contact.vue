@@ -1,27 +1,25 @@
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive } from "vue";
+
 const props = defineProps({
   contact: { type: Object },
+  isEditing: { type: Boolean },
 });
-
 const editedContact = reactive({ ...props.contact });
 
-const emit = defineEmits(['onDelete', 'onUpdate']);
+const emit = defineEmits(["onDelete", "onUpdate", "onEditing"]);
 const onDelete = () => {
-  emit('onDelete', props.contact.id);
+  emit("onDelete", props.contact.id);
 };
-const editClass = ref('');
-const editing = () => {
-  editClass.value = 'isEditing';
+const onEditing = () => {
+  emit("onEditing", props.contact.id);
 };
-
-const saveEdit = () => {
-  emit('onUpdate', editedContact);
-  editClass.value = '';
+const onUpdate = () => {
+  emit("onUpdate", editedContact);
 };
 </script>
 <template>
-  <tr class="contact-row" :class="editClass">
+  <tr class="contact-row" :class="isEditing ? 'isEditing' : ''">
     <td class="p-4">
       <span class="isEditing-hidden">{{ editedContact.firstname }}</span>
       <input
@@ -50,13 +48,13 @@ const saveEdit = () => {
       <div class="flex justify-end space-x-2">
         <button
           class="btn-check isEditing-visible bg-green-400 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-md"
-          @click="saveEdit"
+          @click="onUpdate"
         >
           <i class="fa-solid fa-check"></i>
         </button>
         <button
           class="btn-edit isEditing-hidden bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded-md"
-          @click="editing"
+          @click="onEditing"
         >
           <i class="fa-solid fa-pen-to-square"></i>
         </button>

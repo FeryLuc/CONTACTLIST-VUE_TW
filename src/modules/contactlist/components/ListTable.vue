@@ -3,12 +3,16 @@ import Contact from "./Contact.vue";
 
 const props = defineProps({
   contacts: { type: Array },
+  editingId: { type: Number },
   filteredContacts: { type: Array },
 });
 
-const emit = defineEmits(["onDelete", "onUpdate"]);
+const emit = defineEmits(["onDelete", "onUpdate", "onEditing"]);
 const onDelete = (id) => {
   emit("onDelete", id);
+};
+const onEditing = (id) => {
+  emit("onEditing", id);
 };
 const onUpdate = (newContact) => {
   emit("onUpdate", newContact);
@@ -30,11 +34,13 @@ const onUpdate = (newContact) => {
     </thead>
     <tbody>
       <contact
-        v-for="contact in filteredContacts"
+        v-for="contact in props.contacts"
         :key="contact.id"
         :contact="contact"
         @on-delete="onDelete"
+        @on-editing="onEditing"
         @on-update="onUpdate"
+        :isEditing="props.editingId === contact.id"
       />
     </tbody>
   </table>

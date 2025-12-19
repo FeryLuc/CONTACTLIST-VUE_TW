@@ -7,6 +7,9 @@ const formData = reactive({
   lastname: "",
   email: "",
 });
+const editingId = ref(null);
+
+const getContactCount = computed(() => contacts.length);
 const isCompleted = computed(() => {
   if (formData.firstname && formData.lastname && formData.email) {
     return true;
@@ -15,6 +18,10 @@ const isCompleted = computed(() => {
   }
 });
 
+const init = async (url) => {
+  DB.setApiUrl(url);
+  contacts.splice(0, contacts.length, ...(await DB.findAll()));
+};
 const createContact = async () => {
   if (isCompleted.value) {
     const newContact = await DB.create(formData);
@@ -26,19 +33,37 @@ const createContact = async () => {
     resetInputs();
   }
 };
+const startEditing = (id) => {
+  editingId.value = id;
+};
+const updateContact = async (newContact) => {
+  await DB.updateOne(newContact);
+  console.table(contacts);
+
+  editingId.value = null;
+};
+const deleteContact = async (id) => {
+  await DB.deleteOneById(id);
+  const index = contacts.findIndex((c) => c.id === id);
+  if (index != -1) {
+    contacts.splice(index, 1);
+  }
+};
+
+//Utilities
 const resetInputs = () => {
   formData.firstname = "";
   formData.lastname = "";
   formData.email = "";
-};
-const init = async (url) => {
-  DB.setApiUrl(url);
-  contacts.splice(0, contacts.length, ...(await DB.findAll()));
 };
 
 export const store = reactive({
   init,
   contacts,
   formData,
+  editingId,
   createContact,
+  startEditing,
+  updateContact,
+  deleteContact,
 });

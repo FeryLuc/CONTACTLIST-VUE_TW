@@ -2,53 +2,26 @@
 import ContactlistHeader from "./components/ContactlistHeader.vue";
 import SearchBar from "./components/SearchBar.vue";
 import ListTable from "./components/ListTable.vue";
-import DB from "@/services/DB";
-import { computed, onMounted, watch, ref } from "vue";
+import { store } from "@/stores/contacts";
 
-const contacts = ref([]);
-const filteredContacts = ref(contacts.value);
-onMounted(async () => {
-  DB.setApiUrl("https://691b0e532d8d7855757146d3.mockapi.io/");
-  const response = await DB.findAll();
-  contacts.value.splice(contacts.value.length, 0, ...response);
-  console.table(contacts);
-});
+// const filteredContacts = ref(contacts.value);
 
-const props = defineProps({
-  formData: { type: Object },
-});
-const deleteContact = async (id) => {
-  await DB.deleteOneById(id);
-  const index = contacts.value.findIndex((c) => c.id === id);
-  if (index != -1) {
-    contacts.value.splice(index, 1);
-  }
-};
-const addContact = async () => {
-  const response = await DB.create(props.formData);
-  contacts.value.splice(contacts.value.length, 0, response);
-  console.table(contacts);
-};
-const updateContact = async (newContact) => {
-  await DB.updateOne(newContact);
-};
-const getContactCount = computed(() => contacts.value.length);
-const searchInArray = (searchValue) => {
-  filteredContacts.value = contacts.value.filter(
-    (c) =>
-      c.firstname.toLowerCase().includes(searchValue) ||
-      c.lastname.toLowerCase().includes(searchValue) ||
-      c.email.toLowerCase().includes(searchValue)
-  );
-};
-watch(props.formData, addContact);
-watch(
-  contacts,
-  () => {
-    filteredContacts.value = contacts.value;
-  },
-  { deep: true }
-);
+// const searchInArray = (searchValue) => {
+//   filteredContacts.value = contacts.value.filter(
+//     (c) =>
+//       c.firstname.toLowerCase().includes(searchValue) ||
+//       c.lastname.toLowerCase().includes(searchValue) ||
+//       c.email.toLowerCase().includes(searchValue)
+//   );
+// };
+// watch(props.formData, addContact);
+// watch(
+//   contacts,
+//   () => {
+//     filteredContacts.value = contacts.value;
+//   },
+//   { deep: true }
+// );
 </script>
 <template>
   <!-- Section droite pour la liste des contacts -->
@@ -58,10 +31,11 @@ watch(
     <search-bar @on-search="searchInArray" />
     <!-- Liste des contacts triée et filtrée -->
     <list-table
-      :contacts="contacts"
-      :filteredContacts="filteredContacts"
-      @on-delete="deleteContact"
-      @on-update="updateContact"
+      :contacts="store.contacts"
+      @on-delete="store.deleteContact"
+      @on-editing="store.startEditing"
+      @on-update="store.updateContact"
+      :editingId="store.editingId"
     />
   </section>
 </template>
