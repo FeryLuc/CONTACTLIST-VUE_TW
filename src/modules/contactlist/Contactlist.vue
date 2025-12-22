@@ -17,6 +17,7 @@ import { store } from "@/stores/contacts";
       @on-editing="store.startEditing"
       @on-update="store.updateContact"
       :editingId="store.editingId"
+      @on-sort="store.toggleSort"
     />
   </section>
 </template>
